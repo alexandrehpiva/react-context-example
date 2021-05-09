@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import useDocumentTitle from '../hooks/useDocumentTitle';
 
 const Counter = () => {
   const [count, setCount] = useState(0);
   const [name, setName] = useState('');
 
-  const showMsg = () => `${name} clicou ${count} vezes.`;
+  const showMsg = useMemo(() => `${name} clicou ${count} vezes.`, [count, name]);
 
   useDocumentTitle(showMsg());
 
@@ -16,6 +16,6 @@ const Counter = () => {
       <button onClick={() => setCount(count + 1)}>Aumentar</button>
     </>
   );
-}
+};
 
 export default Counter;

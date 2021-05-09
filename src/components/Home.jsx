@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import UserList from './UserList';
+import Options from './Options';
 import { LoggedUserContext, defaultUser } from '../context/loggedUserContext';
 
 const Home = () => {
@@ -13,18 +13,19 @@ const Home = () => {
 
   const logoutHandler = () => {
     setLoggedUser(defaultUser);
-  }
+  };
 
   return (
     <>
-      {!isLogged
-        ? <button onClick={loginHandler}>Login</button>
-        : <button onClick={logoutHandler}>Logout</button>
-      }
+      {!isLogged ? (
+        <button onClick={loginHandler}>Login</button>
+      ) : (
+        <button onClick={logoutHandler}>Logout</button>
+      )}
       <div>Usuário logado: {isLogged ? loggedUser.name : 'não logado'}</div>
-      {isLogged && <UserList />}
+      {isLogged && <Options />}
     </>
   );
-}
+};
 
 export default Home;

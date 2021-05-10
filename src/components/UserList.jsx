@@ -1,10 +1,11 @@
-import React, { useContext } from 'react';
+import React from 'react';
+import { useContextSelector } from 'use-context-selector';
 import { MainContext } from '../context/MainContextProvider';
 
 const UserList = () => {
   const {
     state: { users },
-  } = useContext(MainContext);
+  } = useContextSelector(MainContext, v => v);
 
   return (
     <ul>

@@ -1,13 +1,14 @@
-import React, { useCallback, useContext, useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Options from './Options';
 import { mainActions, MainContext } from '../context/MainContextProvider';
 import userService from '../services/userService';
+import { useContextSelector } from 'use-context-selector';
 
 const Home = () => {
   const {
     state: { loggedUser, loadingUsers },
     dispatch: mainDispatch,
-  } = useContext(MainContext);
+  } = useContextSelector(MainContext, v => v);
 
   const getUsers = useCallback(async () => {
     // TODO: Replace those actions call by only one async (thunk) GET_USERS
@@ -42,6 +43,7 @@ const Home = () => {
 
   return (
     <>
+      <pre>{JSON.stringify(loggedUser)}</pre>
       {!loggedUser ? (
         <>
           {loadingUsers ? (

@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react';
+import { createContext } from 'use-context-selector';
 
 export const defaultState = {
   loggedUser: null,
@@ -13,7 +14,7 @@ export const mainActions = {
   SET_LOADING_USERS: 'SET_LOADING_USERS',
 };
 
-export const MainContext = React.createContext();
+export const MainContext = createContext();
 
 const reducer = (state, { type, payload }) => {
   switch (type) {

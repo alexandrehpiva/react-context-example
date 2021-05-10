@@ -7,6 +7,8 @@ const UserList = () => {
     state: { users },
   } = useContextSelector(MainContext, v => v);
 
+  console.log('USER_LIST', { users });
+
   return (
     <ul>
       {users.map(user => (

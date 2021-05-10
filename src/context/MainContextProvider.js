@@ -59,6 +59,8 @@ const reducer = (state, { type, payload }) => {
 const MainContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, defaultState);
 
+  console.log('MAIN_CONTEXT_PROVIDER', { state });
+
   return (
     <MainContext.Provider value={{ state, dispatch }}>
       {children}

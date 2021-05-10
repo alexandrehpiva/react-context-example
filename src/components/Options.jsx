@@ -4,6 +4,8 @@ import UserList from './UserList';
 const Options = () => {
   const [showUserList, setShowUserList] = useState(false);
 
+  console.log('OPTIONS');
+
   return (
     <>
       <button type="button" onClick={() => setShowUserList(!showUserList)}>

@@ -10,6 +10,8 @@ const Home = () => {
     dispatch: mainDispatch,
   } = useContextSelector(MainContext, v => v);
 
+  console.log('HOME', { loggedUser, loadingUsers });
+
   const getUsers = useCallback(async () => {
     // TODO: Replace those actions call by only one async (thunk) GET_USERS
     mainDispatch({

@@ -1,29 +1,62 @@
-import React, { useContext } from 'react';
+import React, { useCallback, useContext, useEffect } from 'react';
 import Options from './Options';
-import { LoggedUserContext, defaultUser } from '../context/loggedUserContext';
+import { mainActions, MainContext } from '../context/MainContextProvider';
+import userService from '../services/userService';
 
 const Home = () => {
-  const { loggedUser, setLoggedUser } = useContext(LoggedUserContext);
+  const {
+    state: { loggedUser, loadingUsers },
+    dispatch: mainDispatch,
+  } = useContext(MainContext);
 
-  const isLogged = loggedUser.id !== 0;
+  const getUsers = useCallback(async () => {
+    // TODO: Replace those actions call by only one async (thunk) GET_USERS
+    mainDispatch({
+      type: mainActions.SET_LOADING_USERS,
+      payload: true,
+    });
+    mainDispatch({
+      type: mainActions.SET_USERS,
+      payload: await userService.getAll(),
+    });
+    mainDispatch({
+      type: mainActions.SET_LOADING_USERS,
+      payload: false,
+    });
+  }, [mainDispatch]);
+
+  useEffect(() => {
+    getUsers();
+  }, [getUsers]);
 
   const loginHandler = () => {
-    setLoggedUser({ id: 1, name: 'Alexandre' });
+    mainDispatch({
+      type: mainActions.LOGIN,
+      payload: { id: 1, name: 'Leanne Graham' },
+    });
   };
 
   const logoutHandler = () => {
-    setLoggedUser(defaultUser);
+    mainDispatch({ type: mainActions.LOGOUT });
   };
 
   return (
     <>
-      {!isLogged ? (
-        <button onClick={loginHandler}>Login</button>
+      {!loggedUser ? (
+        <>
+          {loadingUsers ? (
+            <span>Loading users...</span>
+          ) : (
+            <button onClick={loginHandler}>Login</button>
+          )}
+        </>
       ) : (
-        <button onClick={logoutHandler}>Logout</button>
+        <>
+          <div>Usuário logado: {loggedUser.name}</div>
+          <button onClick={logoutHandler}>Logout</button>
+          <Options />
+        </>
       )}
-      <div>Usuário logado: {isLogged ? loggedUser.name : 'não logado'}</div>
-      {isLogged && <Options />}
     </>
   );
 };

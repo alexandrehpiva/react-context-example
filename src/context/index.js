@@ -1,13 +1,8 @@
 import React from 'react';
-import LoggedUserContextProvider from './loggedUserContext';
-import UserContextProvider from './userContext';
+import MainContextProvider from './MainContextProvider';
 
-const ContextProvider = props => (
-  <LoggedUserContextProvider>
-    <UserContextProvider>
-      {props.children}
-    </UserContextProvider>
-  </LoggedUserContextProvider>
-);
+const ContextProvider = props => {
+  return <MainContextProvider>{props.children}</MainContextProvider>;
+};
 
 export default ContextProvider;
